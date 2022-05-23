@@ -10,41 +10,52 @@
 </head>
 <body>
     <div id="app">
-        <p v-once>{{sayHi()}}</p>
-        <a v-text="message" href=""></a>
-        <a v-bind:href="url">google</a>
-        <a v-bind="twitterObject">twitter</a>
-        <p>{{number}}回クリックされた</p>
-        <button v-on:click="countUP()">button</button>
-        <p v-on:mousemove="changeMousePosition($event)">mousu</p>
-        <p>X:{{x}},Y{{y}}</p>
-        <p>{{lessThanThree}}</p>
+        <p v-if="ok==true">ok</p>
+        <p v-else-if></p>
+        <p v-else="ok">not ok</p>
+        <ul>
+            <div v-for="fruit in fruits" :key="fruit">
+                <p>{{fruit}}</p>
+                <input type="text">
+            </div>
+        </ul>
+        <button @click="remove">delete</button>
+        <ul>
+            <li v-for="fruit in fruits">{{fruit}}</li>
+        </ul>
+        <ul>
+            <li v-for="(fruit,index) in fruits">({{index}}){{fruit}}</li>
+        </ul>
+        <ul>
+            <li v-for="(value,key) in object">{{key}}-{{value}}</li>
+        </ul>
+        <ul>
+            <template v-for="fruit in fruits">
+                <li>{{fruit}}</li>
+                <hr>
+            </template>
+        </ul>
     </div>
 </body>
 <script>
     new Vue({
         el:'#app',
         data:{
-            message:'hello',
-            html:'<h1>test</h1>',
-            url:'https://google.com',
-            number:0,
-            twitterObject:{href:'https://twitter.com',id:11,},
-            x:0,
-            y:0,
+            ok: true,
+            fruits:['a','b','c'],
+            object:{
+                firstName:'太郎',
+                lastname :'田中',
+                age      :21
+            },
         },
         computed:{
-            lessThanThree(){
-                return this.number > 3 ? "upper than 3" : "downer than 3"
-            },
+            
         },
         methods:{
-            sayHi(){return this.message;},
-            countUP(){this.number+=1},
-            changeMousePosition(event){
-                this.x = event.clientX;
-                this.y = event.clientY;
-            },
+            remove: function(){
+                this.fruits.shift()
+            }
         }
     })
 </script>

@@ -10,53 +10,47 @@
 </head>
 <body>
     <div id="app">
-        <p v-if="ok==true">ok</p>
-        <p v-else-if></p>
-        <p v-else="ok">not ok</p>
-        <ul>
-            <div v-for="fruit in fruits" :key="fruit">
-                <p>{{fruit}}</p>
-                <input type="text">
-            </div>
-        </ul>
-        <button @click="remove">delete</button>
-        <ul>
-            <li v-for="fruit in fruits">{{fruit}}</li>
-        </ul>
-        <ul>
-            <li v-for="(fruit,index) in fruits">({{index}}){{fruit}}</li>
-        </ul>
-        <ul>
-            <li v-for="(value,key) in object">{{key}}-{{value}}</li>
-        </ul>
-        <ul>
-            <template v-for="fruit in fruits">
-                <li>{{fruit}}</li>
-                <hr>
-            </template>
-        </ul>
+        <p>{{message}}</p>
+    </div>
+    <div id="app2">
+        <p>{{message}}</p>
+        <button @click="changeMessage1">change</button>
+    </div>
+
+    <div id = "app3">
+        
     </div>
 </body>
 <script>
-    new Vue({
+    var vm1 = new Vue({
         el:'#app',
+        data:{message:'instance1',},
+    })
+</script>
+<script>
+    var vm2 = new Vue({
+        el:'#app2',
+        data:{message:'instance2',},
+        methods:{
+            changeMessage1:function(){vm1.message = 'change';}}
+    })
+</script>
+<script>
+    new Vue({
+        el:'#app3',
         data:{
-            ok: true,
-            fruits:['a','b','c'],
-            object:{
-                firstName:'太郎',
-                lastname :'田中',
-                age      :21
-            },
+            name:'bob',
         },
         computed:{
             
         },
         methods:{
-            remove: function(){
-                this.fruits.shift()
-            }
-        }
+            
+        },
+        template:'<h1>hello,{{name}}</h1>',
+        render: function(createElement){
+            return createElement('h1','hello,'+this.name);
+        },
     })
 </script>
 </html>
